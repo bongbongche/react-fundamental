@@ -90,3 +90,65 @@
 
   'nationality: whatever' part changes variables name. nationality to whatever  
   'favFood: { lunch }' part can go deep inside object.
+
+- **Spread operator**
+
+  Spread operator can be applied both array and object.  
+  It gives us item inside of array and object. Just item. Not shell.
+
+  There are arrays of days.
+
+  ```
+  const days = ["Mon", "Tue"];
+  const otherDays = ["Thu", "Fri"];
+  ```
+
+  If I want all days,
+
+  ```
+  const allDays = days + otherDays;
+
+  result is Mon,Tue,Thu,Fri
+  ```
+
+  Instead items of arrays, It gives a string.
+
+  ```
+  const allDays = [days + otherDays];
+
+  result is ["Mon,Tue,Thu,Fri"]
+  ```
+
+  Result is an array. But it has only one item.
+
+  ```
+  const allDays = [days, otherDays];
+
+  result is [Array[2], Array[2]]
+  ```
+
+  Result is an array. But it has two array.
+
+  Spread operator looks like this.
+
+  ```
+  const allDays = [...days, ...otherDays];
+
+  result is ["Mon", "Tue", "Thu", "Fri"]
+  ```
+
+  '...' can unpack array or object.
+
+  ```
+  const ob = {
+    first: "hi"
+  };
+
+  const ab = {
+    second: "hello"
+  };
+
+  const two = {...ob, ...ab};
+
+  result is { first: "hi", second: "hello"}
+  ```
