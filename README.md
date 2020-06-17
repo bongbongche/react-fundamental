@@ -152,3 +152,46 @@
 
   result is { first: "hi", second: "hello"}
   ```
+
+- **Class**
+
+  Class concept is came from object-oriented-programming.  
+  It's like blueprint.
+
+  ```
+  class Human {
+    constructor(name, lastName){
+      this.first = name;
+      this.last = lastName;
+    }
+  }
+  ```
+
+  Thanks to constructor, we can give Human some arguments which is name, lastName.
+  'this' means 'class Human'
+
+  ```
+  const hyun = new Human('first', 'last')
+  ```
+
+  hyun.first is 'first', hyun.last is 'last'.
+
+  Class can extend.
+
+  ```
+  class Baby extends Human {
+    cry(){
+      console.log("Yeaaaaaaaaah")
+    }
+    sayName(){
+      console.log(`My name is ${this.first}`)
+    }
+  }
+
+    const myBaby = new Baby('mini', 'me')
+
+    console.log(myBaby.sayName())
+  ```
+
+  result is 'My name is mini'.  
+  Extended from Human, So class Baby can have class Human's thing.
