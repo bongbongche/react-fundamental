@@ -258,116 +258,154 @@
     'Switch' will do that route will be rendered only one.  
     So "/tv/popular" shows only "/tv".
 
-- **Styled component**
-
-  ```
-  npm i styled-component
-  ```
-
-  - **What is styled-component**
-
-    Styled-component can manage css inside of component.  
-    Sc makes component that has a style.
+  - **withRouter**
+    withRouter is for component that is not routes.  
+    withRouter wraps another component.  
+    With withRouter, component can access router's props.
 
     ```
-    import styled from "styled-components";
-
-    const Header = styled.header``;
-
-    const List = styled.ul`
-      display: flex;
-      &:hover {
-        background-color: pink;
-      }
-    `;
-
-    const Item = styled.li``;
-
-    const Slink = styled(Link)``;
-
-    export default () => (
+    export default withRouter((props) => (
       <Header>
-        <List>
-          <Item>
-            <Slink to="/">Movies</Slink>
-          </Item>
-          <Item>
-            <Slink to="/tv">Tv</Slink>
-          </Item>
-          <Item>
-            <Slink to="/search">Search</Slink>
-          </Item>
-        </List>
+        <Item current={props.location.pathname === "/"}>
+          <Link to "/">Movies</Link>
+        </Item>
       </Header>
-    );
-
+    ))
     ```
 
-  - **How to use**
-
-    First, Just give it a name. The name can be anything.
-
     ```
-    const List
-    ```
+    const Header = (props) => {
+      <Header>
+        <Item current={props.location.pathname === "/"}>
+          <Link to "/">Movies</Link>
+        </Item>
+      </Header>
+    };
 
-    Second, Use styled-component and select tag name.  
-    Not like a css, Sc uses backticks(``).
-
-    ```
-    const List = styled.ul``
+    export default withRouter(Header);
     ```
 
-    Third, Use just like a css.
+    Both are same. Now Item's current which is props can have a boolean.
 
-    ```
-    const List = styled.ul`
-      display: flex;
-      &:hover {
-        background-color: pink;
+### **Styled component**
+
+```
+npm i styled-component
+```
+
+- **What is styled-component**
+
+  Styled-component can manage css inside of component.  
+  Sc makes component that has a style.
+
+  ```
+  import styled from "styled-components";
+
+  const Header = styled.header``;
+
+  const List = styled.ul`
+    display: flex;
+    &:hover {
+      background-color: pink;
+    }
+  `;
+
+  const Item = styled.li``;
+
+  const Slink = styled(Link)``;
+
+  export default () => (
+    <Header>
+      <List>
+        <Item>
+          <Slink to="/">Movies</Slink>
+        </Item>
+        <Item>
+          <Slink to="/tv">Tv</Slink>
+        </Item>
+        <Item>
+          <Slink to="/search">Search</Slink>
+        </Item>
+      </List>
+    </Header>
+  );
+
+  ```
+
+- **How to use**
+
+  First, Just give it a name. The name can be anything.
+
+  ```
+  const List
+  ```
+
+  Second, Use styled-component and select tag name.  
+  Not like a css, Sc uses backticks(``).
+
+  ```
+  const List = styled.ul``
+  ```
+
+  Third, Use just like a css.
+
+  ```
+  const List = styled.ul`
+    display: flex;
+    &:hover {
+      background-color: pink;
+    }
+  `;
+  ```
+
+  If I want to use components which is not a sc, I can do this.
+
+  ```
+  import { Link } from "react-router-dom";
+
+  const Slink = styled(Link)``;
+  ```
+
+  Now Link that coming from "react-router-dom" can be used  
+  as a sc.
+
+- **Global style**
+
+  Until now, styled-component is local.  
+  To use global style, Need 'createGlobalStyle'.
+
+  ```
+  import { createGlobalStyle } from "styled-components";
+  import reset from "styled-reset";
+
+  const globalStyle = createGlobalStyle`
+      ${reset}
+      a{
+          text-decoration:none;
+          color:inherit;
       }
-    `;
-    ```
+      *{
+          box-sizing:border-box;
+      }
+      body{
+          font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+          font-size:14px;
+          background-color:rgba(20, 20, 20, 1);
+          color:white;
+          padding-top:50px;
+      }
+  `;
 
-    If I want to use components which is not a sc, I can do this.
+  export default globalStyle;
+  ```
 
-    ```
-    import { Link } from "react-router-dom";
+  Then import this file to App.js or main component.
 
-    const Slink = styled(Link)``;
-    ```
+- **Props**
 
-    Now Link that coming from "react-router-dom" can be used  
-    as a sc.
+  We can pass props to sc.
 
-  - **Global style**
-
-    Until now, styled-component is local.  
-    To use global style, Need 'createGlobalStyle'.
-
-    ```
-    import { createGlobalStyle } from "styled-components";
-    import reset from "styled-reset";
-
-    const globalStyle = createGlobalStyle`
-        ${reset}
-        a{
-            text-decoration:none;
-            color:inherit;
-        }
-        *{
-            box-sizing:border-box;
-        }
-        body{
-            font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-            font-size:14px;
-            background-color:rgba(20, 20, 20, 1);
-            color:white;
-            padding-top:50px;
-        }
-    `;
-
-    export default globalStyle;
-    ```
-
-    Then import this file to App.js or main component.
+  ```
+    border-bottom: 3px solid
+    ${(props) => (props.current ? "#3498db" : "transparent")};
+  ```
