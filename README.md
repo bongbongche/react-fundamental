@@ -196,59 +196,146 @@
   result is 'My name is mini'.  
   Extended from Human, So class Baby can have class Human's thing.
 
-### **React router**
+### **React**
 
-```
-npm i react-router-dom
-```
-
-- **What is React router**
-  React router is component nesting. And route is component.
-
-- **When to use**
-  Use when i have to tell App where to start and where to go.
-  For example, go "/", go "/Tv", go "/Detail", etc.
-
-- **How to use**
+- **React router**
 
   ```
-  import React from "react";
-  import { HashRouter as Router, Route } from "react-router-dom";
-  import Home from "Routes/Home";
-  import Tv from "Routes/Tv";
-  import Search from "Routes/Search";
+  npm i react-router-dom
+  ```
 
-  export default () => (
+  - **What is React router**
+
+    React router is component nesting. And route is component.
+
+  - **When to use**
+
+    Use when i have to tell App where to start and where to go.
+    For example, go "/", go "/Tv", go "/Detail", etc.
+
+  - **How to use**
+
+    ```
+    import React from "react";
+    import { HashRouter as Router, Route } from "react-router-dom";
+    import Home from "Routes/Home";
+    import Tv from "Routes/Tv";
+    import Search from "Routes/Search";
+
+    export default () => (
+      <Router>
+        <Route path="/" exact component={Home} />
+        <Route path="/tv" component={Tv} />
+        <Route path="/search" component={Search} />
+      </Router>
+    );
+    ```
+
+    Path is a information that sets url.  
+    Exact means It will be displayed when url is exactly same with path = "/".  
+    If i don't use exact, Home, Tv, Search is displayed together.  
+    Because "/tv", "/search" also have "/". It's called composition.  
+    And Route cannot be used outside of Router
+
+  - **Redirect**
+
+    'Redirect' renders a new location.
+
+    ```
     <Router>
-      <Route path="/" exact component={Home} />
-      <Route path="/tv" component={Tv} />
-      <Route path="/search" component={Search} />
+      <Switch>
+        <Route path="/" exact component={Home} />
+        <Route path="/tv" component={Tv} />
+        <Route path="/tv/popular" render={() => <h1>Popular</h1>} />
+        <Route path="/search" component={Search} />
+        <Redirect from="*" to="/" />
+      </Switch>
     </Router>
-  );
-  ```
+    ```
 
-  Path is a information that sets url.  
-  Exact means It will be displayed when url is exactly same with path = "/".  
-  If i don't use exact, Home, Tv, Search is displayed together.  
-  Because "/tv", "/search" also have "/". It's called composition.  
-  And Route cannot be used outside of Router
+    From "\*", to "/". So some bullshit url, for example, "/ajdfjae", will be redirected to "/".  
+    But when you use 'from', You have to use 'Switch'.  
+    'Switch' will do that route will be rendered only one.  
+    So "/tv/popular" shows only "/tv".
 
-- **Redirect**
-  'Redirect' renders a new location.
+- **Styled component**
 
   ```
-  <Router>
-    <Switch>
-      <Route path="/" exact component={Home} />
-      <Route path="/tv" component={Tv} />
-      <Route path="/tv/popular" render={() => <h1>Popular</h1>} />
-      <Route path="/search" component={Search} />
-      <Redirect from="*" to="/" />
-    </Switch>
-  </Router>
+  npm i styled-component
   ```
 
-  From "\*", to "/". So some bullshit url, for example, "/ajdfjae", will be redirected to "/".  
-  But when you use 'from', You have to use 'Switch'.  
-  'Switch' will do that route will be rendered only one.  
-  So "/tv/popular" shows only "/tv".
+  - **What is styled-component**
+
+    Styled-component can manage css inside of component.  
+    Sc makes component that has a style.
+
+    ```
+    import styled from "styled-components";
+
+    const Header = styled.header``;
+
+    const List = styled.ul`
+      display: flex;
+      &:hover {
+        background-color: pink;
+      }
+    `;
+
+    const Item = styled.li``;
+
+    const Slink = styled(Link)``;
+
+    export default () => (
+      <Header>
+        <List>
+          <Item>
+            <Slink to="/">Movies</Slink>
+          </Item>
+          <Item>
+            <Slink to="/tv">Tv</Slink>
+          </Item>
+          <Item>
+            <Slink to="/search">Search</Slink>
+          </Item>
+        </List>
+      </Header>
+    );
+
+    ```
+
+  - **How to use**
+
+    First, Just give it a name. The name can be anything.
+
+    ```
+    const List
+    ```
+
+    Second, Use styled-component and select tag name.  
+    Not like a css, Sc uses backticks(``).
+
+    ```
+    const List = styled.ul``
+    ```
+
+    Third, Use just like a css.
+
+    ```
+    const List = styled.ul`
+      display: flex;
+      &:hover {
+        background-color: pink;
+      }
+    `;
+    ```
+
+    If I want to use components which is not a sc, I can do this.
+
+    ```
+    import { Link } from "react-router-dom";
+
+    const Slink = styled(Link)``;
+    ```
+
+    Now Link that coming from "react-router-dom" can be used  
+    as a sc.
