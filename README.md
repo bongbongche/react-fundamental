@@ -259,6 +259,7 @@
     So "/tv/popular" shows only "/tv".
 
   - **withRouter**
+    
     withRouter is for component that is not routes.  
     withRouter wraps another component.  
     With withRouter, component can access router's props.
@@ -287,66 +288,59 @@
 
     Both are same. Now Item's current which is props can have a boolean.
   
-  - ***Container Presenter Pattern***
+- ***Container Presenter Pattern***
     
-    - **What is pattern**
-      
-      Pattern is just a management method of components.  
-      
-    - **Why use**
-      
-      It doesn't have to be used, But it's good for project with scale  
-      Container-Presenter Pattern can seperate logic and style.  
+  - **What is pattern**
     
-    - **How it works**
-      
-      - Container has a logic. It has a data, state, calls a api.  
-        Handle all logic and give presenter whole things as props.
-
-      - Presenter get props from container. And then show those props.
-
-      ```
-      Home
-        ∟ index.js
-        ∟ HomeContainer.js
-        ∟ HomePresenter.js
-      ```
-
-      - Index.js is import HomeContainer from HomeContainerand export HomeContainer to outside.
-      ```
-      import HomeContainer from "./HomeContainer";
-
-      export default HomeContainer;
-      ```
-
-      - HomeContainer.js will handle logic. And give HomePresenter information.
-      ```
-        import React from "react";
-        import HomePresenter from "./HomePresenter";
-
-        export default class extends React.Component {
-          state = {
-            nowPlaying: null,
-            upcoming: null,
-            popular: null,
-            error: null,
-            loading: true,
-          };
-
-          render() {
-            const { nowPlaying, upcoming, popular, error, loading } = this.state;
-            return (
-              <HomePresenter
-                nowPlaying={nowPlaying}
-                upcoming={upcoming}
-                popular={popular}
-                error={error}
-                loading={loading}
-              />
-            );
-          }
+    Pattern is just a management method of components.  
+    
+  - **Why use**
+    
+    It doesn't have to be used, But it's good for project withscale  
+    Container-Presenter Pattern can seperate logic and style.  
+  
+  - **How it works**
+    
+    - Container has a logic. It has a data, state, calls a api.  
+      Handle all logic and give presenter whole things as props.
+    - Presenter get props from container. And then show thoseprops.
+    ```
+    Home
+      ∟ index.js
+      ∟ HomeContainer.js
+      ∟ HomePresenter.js
+    ```
+    - Index.js is import HomeContainer from HomeContainerandexport HomeContainer to outside.
+    ```
+    import HomeContainer from "./HomeContainer";
+    export default HomeContainer;
+    ```
+    - HomeContainer.js will handle logic. And give HomePresenterinformation.
+    ```
+      import React from "react";
+      import HomePresenter from "./HomePresenter";
+      export default class extends React.Component {
+        state = {
+          nowPlaying: null,
+          upcoming: null,
+          popular: null,
+          error: null,
+          loading: true,
+        };
+        render() {
+          const { nowPlaying, upcoming, popular, error, loading} = this.state;
+          return (
+            <HomePresenter
+              nowPlaying={nowPlaying}
+              upcoming={upcoming}
+              popular={popular}
+              error={error}
+              loading={loading}
+            />
+          );
         }
-      ```
+      }
+    ```
 
 ## ***Styled component***
 
