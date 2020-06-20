@@ -319,8 +319,8 @@
       export default HomeContainer;
       ```
 
-      - HomeContainer.js will handle logic.
-        ```
+      - HomeContainer.js will handle logic. And give HomePresenter information.
+      ```
         import React from "react";
         import HomePresenter from "./HomePresenter";
 
@@ -346,8 +346,7 @@
             );
           }
         }
-        ```
-
+      ```
 
 ## ***Styled component***
 
