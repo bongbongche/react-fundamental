@@ -4,9 +4,10 @@ import styled from "styled-components";
 
 import Section from "Components/Section";
 import Loader from "../../Components/Loader";
+import Message from "../../Components/Message";
 
 const Container = styled.div`
-  padding: 0 10px;
+  padding: 0 20px;
 `;
 
 const TvPresenter = ({ topRated, popular, airingToday, loading, error }) =>
@@ -29,6 +30,7 @@ const TvPresenter = ({ topRated, popular, airingToday, loading, error }) =>
           {airingToday.map((show) => show.name)}
         </Section>
       )}
+      {error && <Message color="red" text={error} />}
     </Container>
   );
 
